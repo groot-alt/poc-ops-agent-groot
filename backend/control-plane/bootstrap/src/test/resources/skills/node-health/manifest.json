@@ -1,0 +1,37 @@
+{
+  "skillId": "node-health-read",
+  "version": "1.1.0",
+  "displayName": "节点健康检查",
+  "description": "读取指定节点的 CPU、内存、磁盘和最近心跳状态。",
+  "category": "INFRASTRUCTURE_DIAGNOSTICS",
+  "riskLevel": "READ_ONLY",
+  "executor": "SHELL",
+  "outputType": "JSON",
+  "readOnly": true,
+  "timeoutSeconds": 20,
+  "owner": "platform-observability",
+  "requiredRoles": [
+    "ROLE_ops-reader",
+    "ROLE_ops-admin"
+  ],
+  "tags": [
+    "node",
+    "health",
+    "diagnostics"
+  ],
+  "interceptors": [
+    "AUTHORIZATION",
+    "AUDIT"
+  ],
+  "parameters": [
+    {
+      "name": "nodeName",
+      "displayName": "节点名称",
+      "description": "需要检查的节点标识。",
+      "type": "STRING",
+      "required": true,
+      "allowedValues": [],
+      "defaultValue": null
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/events/semantic-event-v1.schema.json",
+  "title": "Semantic event v1",
+  "description": "操作台消费的 P1 强类型语义事件，不包含模型内部推理。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "eventId", "workflowId", "sequence", "timestamp", "type", "payload"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "eventId": { "type": "string", "format": "uuid" },
+    "workflowId": { "type": "string", "format": "uuid" },
+    "sequence": { "type": "integer", "minimum": 1 },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "WORKFLOW_STARTED",
+        "SKILL_ROUTED",
+        "WORKER_ACCEPTED",
+        "WORKFLOW_COMPLETED",
+        "WORKFLOW_FAILED"
+      ]
+    },
+    "payload": {
+      "oneOf": [
+        { "$ref": "#/$defs/workflowStartedPayload" },
+        { "$ref": "#/$defs/skillRoutedPayload" },
+        { "$ref": "#/$defs/workerAcceptedPayload" },
+        { "$ref": "#/$defs/workflowCompletedPayload" },
+        { "$ref": "#/$defs/workflowFailedPayload" }
+      ]
+    }
+  },
+  "$defs": {
+    "workflowStartedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "commandId", "operatorId"],
+      "properties": {
+        "payloadType": { "const": "WORKFLOW_STARTED" },
+        "commandId": { "type": "string", "format": "uuid" },
+        "operatorId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "skillRoutedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "skillId", "skillVersion"],
+      "properties": {
+        "payloadType": { "const": "SKILL_ROUTED" },
+        "skillId": { "type": "string", "minLength": 1 },
+        "skillVersion": { "type": "string", "minLength": 1 }
+      }
+    },
+    "workerAcceptedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "executionRequestId"],
+      "properties": {
+        "payloadType": { "const": "WORKER_ACCEPTED" },
+        "executionRequestId": { "type": "string", "format": "uuid" }
+      }
+    },
+    "workflowCompletedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "outputSchemaId", "output"],
+      "properties": {
+        "payloadType": { "const": "WORKFLOW_COMPLETED" },
+        "outputSchemaId": { "type": "string", "minLength": 1 },
+        "output": { "type": "object" }
+      }
+    },
+    "workflowFailedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["payloadType", "errorCode", "message"],
+      "properties": {
+        "payloadType": { "const": "WORKFLOW_FAILED" },
+        "errorCode": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

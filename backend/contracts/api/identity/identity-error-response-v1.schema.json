@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/api/identity/identity-error-response-v1.schema.json",
+  "title": "Identity error response v1",
+  "description": "身份相关结构化错误响应。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["errorCode", "message", "traceId"],
+  "properties": {
+    "errorCode": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "message": { "type": "string", "minLength": 1, "maxLength": 500 },
+    "traceId": { "type": "string", "minLength": 1, "maxLength": 200 }
+  }
+}

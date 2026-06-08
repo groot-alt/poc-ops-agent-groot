@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/workflow/worker-execution-request-v1.schema.json",
+  "title": "Worker execution request v1",
+  "description": "执行 Worker 接收的短期、已授权只读执行请求。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contractVersion", "executionRequestId", "authorizedAt", "expiresAt", "command"],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "executionRequestId": { "type": "string", "format": "uuid" },
+    "authorizedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "command": { "$ref": "read-only-command-v1.schema.json" }
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>com.company.opsagent</groupId>
+    <artifactId>ops-agent-parent</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+
+  <artifactId>control-plane-parent</artifactId>
+  <packaging>pom</packaging>
+  <name>control-plane-parent</name>
+
+  <modules>
+    <module>bootstrap</module>
+    <module>modules/identity</module>
+    <module>modules/policy</module>
+    <module>modules/audit</module>
+    <module>modules/skillregistry</module>
+    <module>modules/agentrouting</module>
+    <module>modules/workflow</module>
+    <module>modules/orchestration</module>
+    <module>modules/events</module>
+  </modules>
+</project>

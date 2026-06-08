@@ -1,0 +1,27 @@
+{
+  "skillId": "service-dependency-health-read",
+  "version": "1.0.0",
+  "displayName": "服务依赖健康检查",
+  "description": "读取指定服务的依赖可达性和最近健康状态。",
+  "category": "APPLICATION_DIAGNOSTICS",
+  "riskLevel": "READ_ONLY",
+  "executor": "HTTP",
+  "outputType": "JSON",
+  "readOnly": true,
+  "timeoutSeconds": 20,
+  "owner": "application-ops",
+  "requiredRoles": ["ROLE_ops-reader", "ROLE_ops-admin"],
+  "tags": ["service", "dependency", "health"],
+  "interceptors": ["AUTHORIZATION", "AUDIT"],
+  "parameters": [
+    {
+      "name": "serviceName",
+      "displayName": "服务名称",
+      "description": "需要检查依赖健康状态的服务标识。",
+      "type": "STRING",
+      "required": true,
+      "allowedValues": [],
+      "defaultValue": null
+    }
+  ]
+}

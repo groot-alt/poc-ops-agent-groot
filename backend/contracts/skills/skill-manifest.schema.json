@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/skill-manifest.schema.json",
+  "title": "Ops Agent Skill Manifest",
+  "description": "M03 Skill 契约与注册中心使用的 Skill Manifest 规范。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "skillId",
+    "version",
+    "displayName",
+    "description",
+    "category",
+    "riskLevel",
+    "executor",
+    "outputType",
+    "readOnly",
+    "timeoutSeconds",
+    "owner",
+    "requiredRoles",
+    "tags",
+    "interceptors",
+    "parameters"
+  ],
+  "properties": {
+    "skillId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "INFRASTRUCTURE_DIAGNOSTICS",
+        "APPLICATION_DIAGNOSTICS",
+        "PLATFORM_OBSERVABILITY"
+      ]
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": [
+        "READ_ONLY",
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ]
+    },
+    "executor": {
+      "type": "string",
+      "enum": [
+        "SHELL",
+        "HTTP",
+        "WORKFLOW"
+      ]
+    },
+    "outputType": {
+      "type": "string",
+      "enum": [
+        "JSON",
+        "TEXT",
+        "TABLE",
+        "MARKDOWN"
+      ]
+    },
+    "readOnly": {
+      "type": "boolean"
+    },
+    "timeoutSeconds": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "requiredRoles": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "interceptors": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "AUTHORIZATION",
+          "AUDIT",
+          "SENSITIVE_DATA_MASKING",
+          "RATE_LIMIT"
+        ]
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "displayName",
+          "description",
+          "type",
+          "required",
+          "allowedValues"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "displayName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "STRING",
+              "INTEGER",
+              "BOOLEAN",
+              "ENUM"
+            ]
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "allowedValues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "defaultValue": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

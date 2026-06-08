@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/workflow/worker-execution-result-v1.schema.json",
+  "title": "Worker execution result v1",
+  "description": "执行 Worker 返回的强类型只读执行结果。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractVersion",
+    "executionRequestId",
+    "commandId",
+    "workflowId",
+    "status",
+    "outputSchemaId",
+    "output",
+    "completedAt"
+  ],
+  "properties": {
+    "contractVersion": { "const": "1.0" },
+    "executionRequestId": { "type": "string", "format": "uuid" },
+    "commandId": { "type": "string", "format": "uuid" },
+    "workflowId": { "type": "string", "format": "uuid" },
+    "status": { "type": "string", "enum": ["SUCCEEDED", "REJECTED", "FAILED"] },
+    "outputSchemaId": { "type": "string", "minLength": 1 },
+    "output": { "type": ["object", "null"] },
+    "errorCode": { "type": ["string", "null"] },
+    "errorMessage": { "type": ["string", "null"] },
+    "completedAt": { "type": "string", "format": "date-time" }
+  }
+}

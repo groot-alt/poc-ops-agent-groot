@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/api/identity/identity-session-status-response-v1.schema.json",
+  "title": "Identity session status response v1",
+  "description": "浏览器会话查询响应。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "authenticated",
+    "roles",
+    "authenticationType",
+    "passwordChangeRequired"
+  ],
+  "properties": {
+    "authenticated": { "type": "boolean" },
+    "subject": { "type": ["string", "null"], "minLength": 1 },
+    "username": { "type": ["string", "null"], "minLength": 1 },
+    "roles": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "authenticationType": { "type": "string", "minLength": 1 },
+    "sessionExpiresAt": { "type": ["string", "null"], "format": "date-time" },
+    "passwordChangeRequired": { "type": "boolean" }
+  }
+}

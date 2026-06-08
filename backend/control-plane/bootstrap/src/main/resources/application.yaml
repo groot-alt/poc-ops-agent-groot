@@ -1,0 +1,104 @@
+spring:
+  application:
+    name: control-plane
+  r2dbc:
+    url: r2dbc:h2:file:///./var/workflow/control-plane;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE
+
+ops-agent:
+  control-plane:
+    service-name: control-plane
+    api-version: 0.1.0-SNAPSHOT
+    api-description: 只读诊断 MVP 的控制面服务骨架。
+  security:
+    auth-mode: dev-hs256
+    issuer: ops-agent-dev
+    audience: ops-agent-internal
+    shared-secret: ops-agent-dev-secret-2026-06-06-0001
+    issuer-uri:
+    jwk-set-uri:
+    username-claim: preferred_username
+    role-claim: roles
+    role-prefix: ROLE_
+    browser-login-enabled: false
+    browser-registration-id: ops-agent
+    browser-login-success-uri: /auth/session
+    browser-logout-success-uri: "{baseUrl}/"
+  built-in-identity:
+    schema-initializer-enabled: true
+    lockout-threshold: 5
+    lockout-duration: 15m
+    session-idle-timeout: 15m
+    session-absolute-timeout: 8h
+    session-cookie-name: OPS_AGENT_SESSION
+    session-cookie-secure: false
+    session-cookie-same-site: Lax
+    session-cookie-max-age: 8h
+  local-oidc-provider:
+    enabled: false
+    issuer: http://127.0.0.1:8080/mock-oidc
+    audience: ops-agent-internal
+    client-id: ops-agent-local-client
+    client-secret: ops-agent-local-secret
+    default-subject: local-reader-id
+    default-username: local.reader
+    default-roles:
+      - ops-reader
+    authorization-code-ttl: 5m
+    token-ttl: 10m
+  policy:
+    version: rbac-v1
+    required-roles-by-action:
+      internal.health.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.modules.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.echo.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.failures.read:
+        - ROLE_ops-admin
+      internal.audit.read:
+        - ROLE_ops-admin
+        - ROLE_ops-auditor
+      internal.skills.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.skills.publish.validate:
+        - ROLE_ops-admin
+      internal.routing.skills.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.diagnostics.read:
+        - ROLE_ops-reader
+        - ROLE_ops-admin
+      internal.identity.password-reset:
+        - ROLE_ops-admin
+  worker:
+    base-url: http://127.0.0.1:8091
+  workflow:
+    startup-recovery-enabled: true
+  skill-registry:
+    root-path: backend/skills
+    signature-required: true
+    signing-secret: ops-agent-skill-signing-key-2026-06-06-0001
+  audit:
+    storage-mode: file
+    storage-path: var/audit/control-plane-audit.jsonl
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html

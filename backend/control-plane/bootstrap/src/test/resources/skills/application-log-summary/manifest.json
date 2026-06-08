@@ -1,0 +1,47 @@
+{
+  "skillId": "application-log-summary-read",
+  "version": "1.0.0",
+  "displayName": "应用日志错误摘要",
+  "description": "读取指定应用最近一段时间的错误日志摘要和高频异常关键词。",
+  "category": "APPLICATION_DIAGNOSTICS",
+  "riskLevel": "READ_ONLY",
+  "executor": "HTTP",
+  "outputType": "MARKDOWN",
+  "readOnly": true,
+  "timeoutSeconds": 30,
+  "owner": "application-ops",
+  "requiredRoles": [
+    "ROLE_ops-reader",
+    "ROLE_ops-admin"
+  ],
+  "tags": [
+    "application",
+    "log",
+    "summary"
+  ],
+  "interceptors": [
+    "AUTHORIZATION",
+    "AUDIT",
+    "SENSITIVE_DATA_MASKING"
+  ],
+  "parameters": [
+    {
+      "name": "applicationName",
+      "displayName": "应用名称",
+      "description": "需要读取日志的应用标识。",
+      "type": "STRING",
+      "required": true,
+      "allowedValues": [],
+      "defaultValue": null
+    },
+    {
+      "name": "minutes",
+      "displayName": "回看分钟数",
+      "description": "日志聚合的时间窗口，单位分钟。",
+      "type": "INTEGER",
+      "required": false,
+      "allowedValues": [],
+      "defaultValue": "15"
+    }
+  ]
+}

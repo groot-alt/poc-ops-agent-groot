@@ -1,0 +1,46 @@
+# IDE and OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+~$*
+
+# Java
+target/
+*.class
+*.jar
+*.war
+*.ear
+.mvn/timing.properties
+
+# Node
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Runtime and local configuration
+.env
+.env.*
+!.env.example
+logs/
+tmp/
+work/
+var/
+artifacts/
+*.log
+
+# Secrets and credentials
+*.pem
+*.key
+*.p12
+*.pfx
+secrets/
+credentials/
+
+# Test and tooling caches
+.pytest_cache/
+.cache/
+.scannerwork/

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://company.example/ops-agent/contracts/skill-publication.schema.json",
+  "title": "Ops Agent Skill Publication Metadata",
+  "description": "M03 Skill 发布签名侧文件规范。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "publishedBy",
+    "publishedAt",
+    "checksumSha256",
+    "signatureAlgorithm",
+    "signature"
+  ],
+  "properties": {
+    "publishedBy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publishedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "checksumSha256": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    },
+    "signatureAlgorithm": {
+      "type": "string",
+      "enum": [
+        "HmacSHA256"
+      ]
+    },
+    "signature": {
+      "type": "string",
+      "pattern": "^[A-Fa-f0-9]{64}$"
+    }
+  }
+}
