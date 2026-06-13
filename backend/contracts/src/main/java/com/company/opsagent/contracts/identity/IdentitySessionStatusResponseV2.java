@@ -35,9 +35,9 @@ public record IdentitySessionStatusResponseV2(
         throw new IllegalArgumentException("authenticated session must contain at least one workspace");
       }
       currentWorkspaceId = requiredText(currentWorkspaceId, "currentWorkspaceId");
-      String visibleCurrentWorkspaceId = currentWorkspaceId;
-      boolean currentWorkspaceVisible = workspaces.stream()
-          .anyMatch(workspace -> workspace.workspaceId().equals(visibleCurrentWorkspaceId));
+        String finalCurrentWorkspaceId = currentWorkspaceId;
+        boolean currentWorkspaceVisible = workspaces.stream()
+          .anyMatch(workspace -> workspace.workspaceId().equals(finalCurrentWorkspaceId));
       if (!currentWorkspaceVisible) {
         throw new IllegalArgumentException("currentWorkspaceId must be visible in workspaces");
       }
