@@ -1,6 +1,6 @@
 # ADR 0007：AgentScope Java 主 Agent Runtime 接入边界
 
-- 状态：Proposed
+- 状态：Accepted
 - 日期：2026-06-13
 - 负责人：架构负责人
 - 相关模块：M03、M04、M05、M07、M08、M09、M10、M11
@@ -72,18 +72,18 @@ AgentScope Java 负责：
 
 - M05 需要新增 Agent 工作流和 Tool Step 持久化。
 - M11 需要新增模型行为、安全拒绝和恢复评测。
-- AgentScope Java 2.0 仍需版本稳定性、许可证和传递依赖审查。
+- 当前接入版本为 AgentScope Java `1.0.12`，后续升级仍需版本稳定性、许可证和传递依赖审查。
 
 ## 验证方式
 
 - 契约测试覆盖 Agent Task、Agent Tool Call、Agent Tool Result 和新增语义事件。
 - 单元测试覆盖默认关闭、只读 Tool Catalog、未发布 Skill 拒绝、非只读 Skill 拒绝、跨工作空间拒绝。
 - 工作流测试覆盖 Agent workflow 幂等、Tool Step 顺序、Agent Runtime 失败和恢复事件。
-- 集成测试覆盖 `/api/v1/agent/diagnostics` 的认证、授权和只读诊断路径。
+- 集成测试覆盖 `/internal/agent/diagnostics` 的认证、授权、默认关闭和受控只读诊断路径。
 - 评测覆盖 Prompt 注入、Tool 输出注入、写操作请求、模型超时和输出格式错误。
 
 ## 发布与回滚
 
 首期通过 `ops-agent.agent-runtime.enabled=false` 默认关闭。
 
-启用后仅允许在开发或评测环境运行。若 Agent Runtime 出现异常，关闭开关后控制面必须回到现有 `/api/v1/diagnostics` 单 Skill 只读闭环。历史 Agent workflow 和审计记录仍需可查询，不得删除或篡改。
+启用后仅允许在开发或评测环境运行。若 Agent Runtime 出现异常，关闭开关后控制面必须回到现有 `/internal/diagnostics/read-only` 单 Skill 只读闭环。历史 Agent workflow 和审计记录仍需可查询，不得删除或篡改。

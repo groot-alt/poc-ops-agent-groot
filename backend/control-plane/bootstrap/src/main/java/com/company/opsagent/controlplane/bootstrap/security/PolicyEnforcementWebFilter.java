@@ -234,6 +234,9 @@ public class PolicyEnforcementWebFilter implements WebFilter {
       if (method == HttpMethod.POST && "/internal/diagnostics/read-only/events".equals(path)) {
         return new ActionDescriptor("internal.diagnostics.read", path);
       }
+      if (method == HttpMethod.POST && "/internal/agent/diagnostics".equals(path)) {
+        return new ActionDescriptor("internal.agent.diagnostics.read", path);
+      }
       if (method == HttpMethod.POST && "/internal/identity/password-reset".equals(path)) {
         return new ActionDescriptor("internal.identity.password-reset", path);
       }
