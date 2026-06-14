@@ -5,7 +5,7 @@
 AgentScope Java 已作为 M04 主运行时接入控制面，但默认关闭。控制面新增受保护入口：
 
 ```text
-POST /internal/agent/diagnostics
+POST /api/v1/agent/diagnostics
 ```
 
 该入口必须先通过 M01 身份认证、M02 策略授权和审计记录。客户端不得传入授权结论、策略版本或工作流事实源字段。
@@ -38,7 +38,7 @@ ops-agent:
 
 回退后：
 
-- `/internal/agent/diagnostics` 返回 `AGENT_RUNTIME_DISABLED`。
+- `/api/v1/agent/diagnostics` 返回 `AGENT_RUNTIME_DISABLED`。
 - `/internal/diagnostics/read-only` 单 Skill 只读闭环继续可用。
 - 历史 Agent workflow、Tool Step 和审计记录不得删除或篡改。
 

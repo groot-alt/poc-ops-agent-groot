@@ -135,7 +135,7 @@
 
 - 已将 AgentScope Java `1.0.12` 接入为 M04 主运行时实现候选，并限制直接依赖只出现在 `control-plane-agentruntime` 模块。
 - 已新增 `AgentscopeReActAgentClient`，通过 AgentScope `ReActAgent` 和 OpenAI-compatible `OpenAIChatModel` 运行主 Agent 循环，并只返回最终可审计摘要，不输出模型内部推理。
-- 已新增 `/internal/agent/diagnostics` 受保护入口，默认关闭；入口经过统一认证、策略授权和审计过滤器。
+- 已新增 `/api/v1/agent/diagnostics` 受保护入口，默认关闭；入口经过统一认证、策略授权和审计过滤器。
 - 已新增 R2DBC Agent 工作流事实源，覆盖 workflow 幂等、Tool Step 顺序和完成状态。
 - 当前 P1 Tool 执行仍保持平台守护边界：非只读、未发布或不可见 Skill 被拒绝；Worker 执行接线不在本次放宽。
 - 已补充评测清单和 POC 运行手册，记录启用、回退和依赖验证方式。

@@ -66,13 +66,17 @@ public class PolicyEnforcementWebFilter implements WebFilter {
   @Override
   public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
     String path = exchange.getRequest().getPath().value();
-    if (!path.startsWith("/internal/")) {
+    if (!requiresPolicy(path)) {
       return chain.filter(exchange);
     }
     return authenticate(exchange)
         .flatMap(operatorIdentity -> authorize(exchange, chain, operatorIdentity).thenReturn(Boolean.TRUE))
         .defaultIfEmpty(Boolean.FALSE)
         .flatMap(authorized -> authorized ? Mono.empty() : denyWithoutPrincipal(exchange));
+  }
+
+  private boolean requiresPolicy(String path) {
+    return path.startsWith("/internal/") || "/api/v1/agent/diagnostics".equals(path);
   }
 
   /**
@@ -235,6 +239,9 @@ public class PolicyEnforcementWebFilter implements WebFilter {
         return new ActionDescriptor("internal.diagnostics.read", path);
       }
       if (method == HttpMethod.POST && "/internal/agent/diagnostics".equals(path)) {
+        return new ActionDescriptor("internal.agent.diagnostics.read", path);
+      }
+      if (method == HttpMethod.POST && "/api/v1/agent/diagnostics".equals(path)) {
         return new ActionDescriptor("internal.agent.diagnostics.read", path);
       }
       if (method == HttpMethod.POST && "/internal/identity/password-reset".equals(path)) {

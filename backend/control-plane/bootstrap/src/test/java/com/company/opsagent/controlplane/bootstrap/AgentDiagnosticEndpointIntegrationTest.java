@@ -55,7 +55,7 @@ class AgentDiagnosticEndpointIntegrationTest {
   @Test
   void executesEnabledAgentDiagnosticEndpointThroughWorkflow() {
     webTestClient.post()
-        .uri("/internal/agent/diagnostics")
+        .uri("/api/v1/agent/diagnostics")
         .headers(headers -> headers.setBearerAuth(token("alice", List.of("ops-reader"))))
         .contentType(APPLICATION_JSON)
         .bodyValue("""

@@ -79,7 +79,7 @@ AgentScope Java 负责：
 - 契约测试覆盖 Agent Task、Agent Tool Call、Agent Tool Result 和新增语义事件。
 - 单元测试覆盖默认关闭、只读 Tool Catalog、未发布 Skill 拒绝、非只读 Skill 拒绝、跨工作空间拒绝。
 - 工作流测试覆盖 Agent workflow 幂等、Tool Step 顺序、Agent Runtime 失败和恢复事件。
-- 集成测试覆盖 `/internal/agent/diagnostics` 的认证、授权、默认关闭和受控只读诊断路径。
+- 集成测试覆盖 `/api/v1/agent/diagnostics` 的认证、授权、默认关闭和受控只读诊断路径。
 - 评测覆盖 Prompt 注入、Tool 输出注入、写操作请求、模型超时和输出格式错误。
 
 ## 发布与回滚

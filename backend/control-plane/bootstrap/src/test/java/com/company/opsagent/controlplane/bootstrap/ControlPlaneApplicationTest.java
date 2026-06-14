@@ -327,7 +327,7 @@ class ControlPlaneApplicationTest {
   void rejectsMissingTokenOnAgentDiagnosticEndpoint() {
     auditTrail.clear();
     webTestClient.post()
-        .uri("/internal/agent/diagnostics")
+        .uri("/api/v1/agent/diagnostics")
         .contentType(APPLICATION_JSON)
         .bodyValue(agentDiagnosticBody("agent-missing-token"))
         .exchange()
@@ -340,7 +340,7 @@ class ControlPlaneApplicationTest {
   void rejectsAgentDiagnosticEndpointWithoutReaderRole() {
     auditTrail.clear();
     webTestClient.post()
-        .uri("/internal/agent/diagnostics")
+        .uri("/api/v1/agent/diagnostics")
         .headers(headers -> headers.setBearerAuth(token("auditor", List.of("ops-auditor"), "ops-agent-internal")))
         .contentType(APPLICATION_JSON)
         .bodyValue(agentDiagnosticBody("agent-denied"))
@@ -354,7 +354,7 @@ class ControlPlaneApplicationTest {
   void reportsAgentRuntimeDisabledUntilExplicitlyEnabled() {
     auditTrail.clear();
     webTestClient.post()
-        .uri("/internal/agent/diagnostics")
+        .uri("/api/v1/agent/diagnostics")
         .headers(headers -> headers.setBearerAuth(token("alice", List.of("ops-reader"), "ops-agent-internal")))
         .contentType(APPLICATION_JSON)
         .bodyValue(agentDiagnosticBody("agent-disabled"))

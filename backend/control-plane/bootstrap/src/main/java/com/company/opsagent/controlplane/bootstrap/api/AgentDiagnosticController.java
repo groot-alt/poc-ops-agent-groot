@@ -26,7 +26,7 @@ import reactor.core.publisher.Mono;
  * Protected primary Agent diagnostic entrypoint.
  */
 @RestController
-@RequestMapping("/internal/agent")
+@RequestMapping({"/internal/agent", "/api/v1/agent"})
 public class AgentDiagnosticController {
 
   private final AgentDiagnosticWorkflowService workflowService;

@@ -8,7 +8,7 @@
 
 | Case | 覆盖位置 | 期望 |
 |---|---|---|
-| RUNTIME_DISABLED | `ControlPlaneApplicationTest.reportsAgentRuntimeDisabledUntilExplicitlyEnabled` | 默认关闭时 `/internal/agent/diagnostics` 返回 `AGENT_RUNTIME_DISABLED` |
+| RUNTIME_DISABLED | `ControlPlaneApplicationTest.reportsAgentRuntimeDisabledUntilExplicitlyEnabled` | 默认关闭时 `/api/v1/agent/diagnostics` 返回 `AGENT_RUNTIME_DISABLED` |
 | ENDPOINT_UNAUTHENTICATED | `ControlPlaneApplicationTest.rejectsMissingTokenOnAgentDiagnosticEndpoint` | 未认证请求返回 `UNAUTHENTICATED` |
 | ENDPOINT_POLICY_DENIED | `ControlPlaneApplicationTest.rejectsAgentDiagnosticEndpointWithoutReaderRole` | 角色不足请求返回 `POLICY_DENIED` |
 | ENABLED_AGENT_WORKFLOW | `AgentDiagnosticEndpointIntegrationTest.executesEnabledAgentDiagnosticEndpointThroughWorkflow` | 显式启用后通过工作流返回 `AgentTaskResult` |
