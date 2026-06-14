@@ -1,0 +1,161 @@
+.shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(37, 132, 169, 0.1), transparent 24rem),
+    linear-gradient(rgba(37, 132, 169, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(37, 132, 169, 0.035) 1px, transparent 1px),
+    var(--color-canvas);
+  background-size: auto, 36px 36px, 36px 36px, auto;
+}
+
+.sidebar {
+  position: fixed;
+  inset: 24px auto 24px 32px;
+  z-index: 10;
+  display: flex;
+  width: 220px;
+  flex-direction: column;
+  padding: 22px 18px;
+  border: 1px solid color-mix(in srgb, var(--color-info) 18%, transparent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: 0 10px 26px rgba(31, 41, 51, 0.07);
+  backdrop-filter: blur(18px);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 4px 20px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.brand strong,
+.brand small,
+.safety strong,
+.safety small,
+.session strong,
+.session small {
+  display: block;
+}
+
+.brand strong {
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.brand small,
+.safety small,
+.session small {
+  margin-top: 3px;
+  color: var(--color-muted);
+  font-size: 0.7rem;
+}
+
+.logo {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, white 47%, transparent 49%),
+    conic-gradient(var(--color-accent), var(--color-info), var(--color-success), var(--color-accent));
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  font-weight: 900;
+}
+
+.nav {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 10px 12px;
+  border-radius: var(--radius-control);
+  color: var(--color-text);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.navIcon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--color-info) 16%, transparent);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.65rem;
+}
+
+.active {
+  background: color-mix(in srgb, var(--color-accent) 10%, white);
+  color: var(--color-accent);
+}
+
+.active .navIcon {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: white;
+}
+
+.sidebarFooter {
+  gap: var(--space-2);
+  margin-top: auto;
+}
+
+.safety,
+.session {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.safetyIndicator {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--color-info);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-info) 12%, transparent);
+}
+
+.avatar {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: var(--radius-control);
+  background: var(--color-text);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 800;
+}
+
+.content {
+  margin-left: 284px;
+  max-width: var(--content-max);
+  min-width: 0;
+  padding: 40px clamp(32px, 4vw, 72px);
+}
+
+@media (min-width: 1680px) {
+  .content {
+    margin-left: 300px;
+  }
+}
