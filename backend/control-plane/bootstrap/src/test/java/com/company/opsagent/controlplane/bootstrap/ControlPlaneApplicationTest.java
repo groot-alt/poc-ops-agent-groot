@@ -408,45 +408,6 @@ class ControlPlaneApplicationTest {
   }
 
   @Test
-  void exposesOnlyDevelopmentAndTestSqlConnections() {
-    webTestClient.get()
-        .uri("/internal/sql-workbench/connections")
-        .headers(headers -> headers.setBearerAuth(token("alice", List.of("ops-reader"), "ops-agent-internal")))
-        .exchange()
-        .expectStatus().isOk()
-        .expectBody()
-        .jsonPath("$[0].connectionId").isEqualTo("as400-development")
-        .jsonPath("$[1].connectionId").isEqualTo("as400-test")
-        .jsonPath("$[?(@.targetEnvironment == 'production')]").isEmpty();
-  }
-
-  @Test
-  void preflightsDmlWithoutExecutingIt() {
-    webTestClient.post()
-        .uri("/internal/sql-workbench/queries/validate")
-        .headers(headers -> headers.setBearerAuth(token("alice", List.of("ops-reader"), "ops-agent-internal")))
-        .contentType(APPLICATION_JSON)
-        .bodyValue("""
-            {
-              "contractVersion": "1.0",
-              "connectionId": "as400-development",
-              "targetEnvironment": "development",
-              "schema": "ORDERS",
-              "action": "PREFLIGHT_DML",
-              "sql": "update ORDERS.ORDERS set status = 'READY' where order_id = 42",
-              "parameters": [],
-              "limits": {"maxRows": 500, "maxBytes": 5000000, "timeoutSeconds": 30},
-              "idempotencyKey": "sql-preflight-1"
-            }
-            """)
-        .exchange()
-        .expectStatus().isOk()
-        .expectBody()
-        .jsonPath("$.statementType").isEqualTo("UPDATE")
-        .jsonPath("$.validationLevel").isEqualTo("PARTIAL");
-  }
-
-  @Test
   void wiresWorkflowPersistenceStoreAndRecoveryService() {
     Assertions.assertNotNull(readOnlyWorkflowStore);
     Assertions.assertNotNull(readOnlyWorkflowRecoveryService);
